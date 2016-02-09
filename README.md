@@ -8,4 +8,7 @@ Download:
 Or build the docker image yourself:
 
 	git clone https://github.com/dizk/torquebuilder.git && cd torquebuilder
-	docker build .
+	sudo docker build -t somename/torquebuilder .
+	sudo docker run -v ${PWD}/artifacts:/artifacts somename/torquebuilder
+
+The finished RPMs will be in the artifact folder.
