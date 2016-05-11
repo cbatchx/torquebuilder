@@ -6,10 +6,10 @@ VERSION="4.2.10"
 #############################
 
 FOLDER="torque-$VERSION"
-ARCHIVE="$OUTPUT.tar.gz"
-BASEPATH="http://www.adaptivecomputing.com/download/torque/"
+ARCHIVE="$FOLDER.tar.gz"
+BASEPATH="http://wpfilebase.s3.amazonaws.com/torque/"
 echo "Downloading source..."
-wget "$BASEPATH$ARCHIVE" -qO $ARCHIVE
+curl -O "$BASEPATH$ARCHIVE"
 
 # Repack - because...
 echo "Extracting source..."
