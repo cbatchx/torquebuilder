@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 
 #############################
 # Change this value to make rpms of another version
@@ -11,18 +13,13 @@ BASEPATH="http://wpfilebase.s3.amazonaws.com/torque/"
 echo "Downloading source..."
 curl -O "$BASEPATH$ARCHIVE"
 
-# Repack - because...
 echo "Extracting source..."
 tar xvzf $ARCHIVE
 
-
 echo "Building source..."
-mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-cp $FOLDER/torque.spec ~/rpmbuild/SPECS/
-cp $ARCHIVE ~/rpmbuild/SOURCES/
-
-rpmbuild -bs --target x86_64 --nodeps ~/rpmbuild/SPECS/torque.spec
-rpmbuild -bb --target x86_64 --nodeps ~/rpmbuild/SPECS/torque.spec
-
+cd $FOLDER 
+./configure
+make
+make rpm
 
 cp ~/rpmbuild/RPMS/x86_64/* /artifacts
