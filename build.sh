@@ -1,17 +1,21 @@
 #!/bin/bash
-VERSION="torque-6.0.0.1"
-FILENAME="$VERSION.tar.gz"
-wget http://wpfilebase.s3.amazonaws.com/torque/torque-6.0.0.1-1449528029_21cc3d8.tar.gz -qO $FILENAME
+
+#############################
+# Change this value to make rpms of another version
+VERSION="4.2.10"
+#############################
+
+FOLDER="torque-$VERSION"
+ARCHIVE="$OUTPUT.tar.gz"
+BASEPATH="http://www.adaptivecomputing.com/download/torque/"
+wget $BASEPATH$ARCHIVE -qO $ARCHIVE
 
 # Repack - because...
-tar xvzf $FILENAME
-rm $FILENAME
-mv torque-6.0.0.1* $VERSION
-tar zcvf $FILENAME $VERSION
+tar xvzf $ARCHIVE
 
 mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-cp $VERSION/torque.spec ~/rpmbuild/SPECS/
-cp $FILENAME ~/rpmbuild/SOURCES/
+cp $FOLDER/torque.spec ~/rpmbuild/SPECS/
+cp $ARCHIVE ~/rpmbuild/SOURCES/
 
 rpmbuild -bs --target x86_64 --nodeps ~/rpmbuild/SPECS/torque.spec
 rpmbuild -bb --target x86_64 --nodeps ~/rpmbuild/SPECS/torque.spec
