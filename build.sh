@@ -8,11 +8,15 @@ VERSION="4.2.10"
 FOLDER="torque-$VERSION"
 ARCHIVE="$OUTPUT.tar.gz"
 BASEPATH="http://www.adaptivecomputing.com/download/torque/"
-wget $BASEPATH$ARCHIVE -qO $ARCHIVE
+echo "Downloading source..."
+wget "$BASEPATH$ARCHIVE" -qO $ARCHIVE
 
 # Repack - because...
+echo "Extracting source..."
 tar xvzf $ARCHIVE
 
+
+echo "Building source..."
 mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 cp $FOLDER/torque.spec ~/rpmbuild/SPECS/
 cp $ARCHIVE ~/rpmbuild/SOURCES/
